@@ -63,12 +63,20 @@
 .dlit-math-captcha-simple {
 	display: flex;
 	align-items: center;
-	flex-wrap: wrap;
+	justify-content: space-between;
+	width: 100%;
 	gap: 6px;
 	margin: 8px 0;
 	padding: 0;
 	background: transparent;
 	border: 0;
+	box-sizing: border-box;
+}
+
+.dlit-captcha-simple-right {
+	display: flex;
+	align-items: center;
+	gap: 6px;
 }
 
 .dlit-captcha-simple-label {

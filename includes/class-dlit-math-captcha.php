@@ -212,15 +212,22 @@ class Dlit_Math_Captcha {
 		} else {
 			$tooltip = esc_attr__( 'Solve this math problem to prove you are human.', 'dlit-wp-math-captcha' );
 			$html   .= '<span class="dlit-captcha-simple-label">';
-			$html   .= '<label for="' . esc_attr( $field_id ) . '" class="dlit-captcha-simple-title">' . esc_html__( 'Math:', 'dlit-wp-math-captcha' ) . '</label>';
 			$html   .= '<a href="' . esc_url( $plugin_url ) . '" target="_blank" rel="noopener noreferrer" class="dlit-captcha-info" aria-label="' . esc_attr__( 'About Math Captcha', 'dlit-wp-math-captcha' ) . '" data-tooltip="' . $tooltip . '">&#8505;</a>';
+			$html   .= '<label for="' . esc_attr( $field_id ) . '" class="dlit-captcha-simple-title">' . esc_html__( 'Math:', 'dlit-wp-math-captcha' ) . '</label>';
 			$html   .= '</span>';
+		}
+
+		if ( $simple_layout ) {
+			$html .= '<span class="dlit-captcha-simple-right">';
 		}
 
 		$html .= '<div class="dlit-captcha-question" aria-label="' . esc_attr__( 'Math question', 'dlit-wp-math-captcha' ) . '">';
 		$html .= wp_kses( $data['question'] . ( $simple_layout ? ' =' : ' = ?' ), array() );
 		$html .= '</div>';
 		$html .= '<input type="number" id="' . esc_attr( $field_id ) . '" name="dlit_captcha_answer" class="dlit-captcha-input" required autocomplete="off" aria-label="' . esc_attr__( 'Math captcha answer', 'dlit-wp-math-captcha' ) . '">';
+		if ( $simple_layout ) {
+			$html .= '</span>';
+		}
 		$html .= '<input type="hidden" name="dlit_captcha_token" value="' . esc_attr( $data['token'] ) . '">';
 		$html .= wp_nonce_field( self::NONCE_ACTION, 'dlit_captcha_nonce_field', true, false );
 		$html .= '</div>';
