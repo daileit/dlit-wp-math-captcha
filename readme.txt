@@ -54,6 +54,10 @@ Tag syntax	Effect
 [math_captcha class:full]	forces full layout with note
 [math_captcha id:my-id]	custom HTML id on the input
 [math_captcha id:my-id class:simple]	combined
+[math_captcha light]
+[math_captcha dark]
+[math_captcha simple light]
+[math_captcha id:my-id full dark]
 == Changelog ==
 
 = 1.1.0 =
