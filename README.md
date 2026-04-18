@@ -74,7 +74,12 @@ Add the `[math_captcha]` tag anywhere inside your CF7 form template:
 ```
 [math_captcha]
 ```
-
+Tag syntax	Effect
+[math_captcha]	uses Settings → Display Mode setting
+[math_captcha class:simple]	forces simple one-line layout
+[math_captcha class:full]	forces full layout with note
+[math_captcha id:my-id]	custom HTML id on the input
+[math_captcha id:my-id class:simple]	combined
 ---
 
 ## Requirements

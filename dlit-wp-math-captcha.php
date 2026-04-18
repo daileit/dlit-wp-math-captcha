@@ -3,7 +3,7 @@
  * Plugin Name: Dlit WP Math Captcha
  * Plugin URI:  https://github.com/daileit/dlit-wp-math-captcha
  * Description: A simple WordPress plugin that applies math captcha on comments, product reviews, login page, sign up page, and CF7 forms. Configurable difficulty (number of digits, operation type).
- * Version:     1.2.0
+ * Version:     1.3.0
  * Author:      Daileit
  * Author URI:  https://github.com/daileit
  * License:     GPL-2.0+
@@ -40,8 +40,8 @@ if ( is_admin() ) {
 function dlit_math_captcha_defaults() {
 	return array(
 		'enable_comments'  => 1,
-		'enable_login'     => 0,
-		'enable_register'  => 0,
+		'enable_login'     => 1,
+		'enable_register'  => 1,
 		'enable_woo'       => 0,
 		'enable_cf7'       => 0,
 		'simple_comments'  => 1,
@@ -98,13 +98,37 @@ function dlit_math_captcha_init() {
 register_activation_hook( __FILE__, 'dlit_math_captcha_activate' );
 
 /**
- * Plugin activation: set default options.
+ * Plugin activation: set smart defaults and flag redirect to settings page.
  */
 function dlit_math_captcha_activate() {
 	if ( false === get_option( 'dlit_math_captcha_settings' ) ) {
-		add_option( 'dlit_math_captcha_settings', dlit_math_captcha_defaults() );
+		$defaults = dlit_math_captcha_defaults();
+
+		// Auto-enable WooCommerce and CF7 integrations if already installed.
+		if ( class_exists( 'WooCommerce' ) || defined( 'WC_VERSION' ) ) {
+			$defaults['enable_woo'] = 1;
+		}
+		if ( class_exists( 'WPCF7' ) || defined( 'WPCF7_VERSION' ) ) {
+			$defaults['enable_cf7'] = 1;
+		}
+
+		add_option( 'dlit_math_captcha_settings', $defaults );
 	}
+
+	// Flag so admin_init can redirect to settings on first activation.
+	add_option( 'dlit_math_captcha_redirect', true );
 }
+
+/**
+ * Redirect to settings page once after activation.
+ */
+add_action( 'admin_init', function () {
+	if ( get_option( 'dlit_math_captcha_redirect' ) ) {
+		delete_option( 'dlit_math_captcha_redirect' );
+		wp_safe_redirect( admin_url( 'options-general.php?page=dlit-math-captcha' ) );
+		exit;
+	}
+} );
 
 register_deactivation_hook( __FILE__, 'dlit_math_captcha_deactivate' );
 
