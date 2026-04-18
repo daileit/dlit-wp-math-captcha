@@ -192,14 +192,17 @@ class Dlit_Math_Captcha {
 	 *
 	 * @param string $field_id      Optional CSS id for the answer input. Defaults to 'dlit_captcha_answer'.
 	 * @param bool   $simple_layout Whether to render a compact one-line layout.
+	 * @param string $text_mode     Optional text mode override: 'dark' or 'light'.
 	 * @return string HTML markup.
 	 */
-	public static function render( $field_id = 'dlit_captcha_answer', $simple_layout = true ) {
+	public static function render( $field_id = 'dlit_captcha_answer', $simple_layout = true, $text_mode = '' ) {
 		$data       = self::generate();
 		$nonce      = wp_create_nonce( self::NONCE_ACTION );
 		$plugin_url = 'https://github.com/daileit/dlit-wp-math-captcha';
+		$text_mode  = in_array( $text_mode, array( 'dark', 'light' ), true ) ? $text_mode : '';
+		$text_class = '' !== $text_mode ? ' dlit-math-captcha-text-' . $text_mode : '';
 
-		$html = '<div class="dlit-math-captcha-wrap' . ( $simple_layout ? ' dlit-math-captcha-simple' : '' ) . '">';
+		$html = '<div class="dlit-math-captcha-wrap' . ( $simple_layout ? ' dlit-math-captcha-simple' : '' ) . $text_class . '">';
 
 		if ( ! $simple_layout ) {
 			$label = esc_html__( 'Math Captcha', 'dlit-wp-math-captcha' );

@@ -10,6 +10,8 @@
  *   [math_captcha id:my-id]           — custom HTML id on the input
  *   [math_captcha simple]             — force simple one-line layout
  *   [math_captcha full]               — force full layout with note
+ *   [math_captcha light]              — force light text mode
+ *   [math_captcha dark]               — force dark text mode
  *   [math_captcha id:my-id simple]    — combine options
  *
  * @package Dlit_WP_Math_Captcha
@@ -76,6 +78,26 @@ class Dlit_Math_Captcha_CF7 {
 	}
 
 	/**
+	 * Resolve text mode from tag options.
+	 *
+	 * Supports bare flag options `light` and `dark` on the tag.
+	 *
+	 * @param WPCF7_FormTag $tag CF7 form-tag object.
+	 * @return string Empty string for default/inherit, or 'light'/'dark'.
+	 */
+	private function resolve_text_mode( $tag ) {
+		if ( $tag->has_option( 'light' ) ) {
+			return 'light';
+		}
+
+		if ( $tag->has_option( 'dark' ) ) {
+			return 'dark';
+		}
+
+		return '';
+	}
+
+	/**
 	 * Render the `[math_captcha]` form-tag HTML.
 	 *
 	 * @param WPCF7_FormTag $tag Current form-tag object.
@@ -89,9 +111,10 @@ class Dlit_Math_Captcha_CF7 {
 			$field_id = sanitize_html_class( $id_option );
 		}
 
-		$simple = $this->resolve_simple_layout( $tag );
+		$simple    = $this->resolve_simple_layout( $tag );
+		$text_mode = $this->resolve_text_mode( $tag );
 
-		return Dlit_Math_Captcha::render( $field_id, $simple );
+		return Dlit_Math_Captcha::render( $field_id, $simple, $text_mode );
 	}
 
 	/**

@@ -172,6 +172,27 @@
 	box-sizing: border-box !important;
 }
 
+/* CF7 shortcode text mode overrides */
+.dlit-math-captcha-text-light,
+.dlit-math-captcha-text-light label,
+.dlit-math-captcha-text-light .dlit-captcha-simple-title,
+.dlit-math-captcha-text-light .dlit-captcha-info,
+.dlit-math-captcha-text-light .dlit-captcha-question,
+.dlit-math-captcha-text-light .dlit-captcha-input,
+.dlit-math-captcha-text-light .dlit-captcha-note {
+	color: #f5f5f5 !important;
+}
+
+.dlit-math-captcha-text-dark,
+.dlit-math-captcha-text-dark label,
+.dlit-math-captcha-text-dark .dlit-captcha-simple-title,
+.dlit-math-captcha-text-dark .dlit-captcha-info,
+.dlit-math-captcha-text-dark .dlit-captcha-question,
+.dlit-math-captcha-text-dark .dlit-captcha-input,
+.dlit-math-captcha-text-dark .dlit-captcha-note {
+	color: #1f2937 !important;
+}
+
 /* Login / Register pages — wider layout */
 body.login .dlit-math-captcha-wrap {
 	margin: 16px 0;
