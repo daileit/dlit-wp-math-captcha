@@ -3,7 +3,7 @@
  * Plugin Name: Dlit WP Math Captcha
  * Plugin URI:  https://github.com/daileit/dlit-wp-math-captcha
  * Description: A simple WordPress plugin that applies math captcha on comments, product reviews, login page, sign up page, and CF7 forms. Configurable difficulty (number of digits, operation type).
- * Version:     1.3.0
+ * Version:     1.3.2
  * Author:      Daileit
  * Author URI:  https://github.com/daileit
  * License:     GPL-2.0+
