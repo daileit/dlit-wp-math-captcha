@@ -1,0 +1,66 @@
+/*
+ * Dlit WP Math Captcha — Frontend Stylesheet
+ */
+
+.dlit-math-captcha-wrap {
+	margin: 12px 0;
+	padding: 14px 16px;
+	background: #f8f9fa;
+	border: 1px solid #dee2e6;
+	border-radius: 4px;
+	font-size: 14px;
+	line-height: 1.5;
+}
+
+.dlit-math-captcha-wrap label {
+	display: block;
+	margin-bottom: 6px;
+	color: #333;
+}
+
+.dlit-math-captcha-wrap label strong {
+	display: block;
+	margin-bottom: 2px;
+}
+
+.dlit-captcha-note {
+	font-size: 13px;
+	color: #555;
+}
+
+.dlit-captcha-question {
+	display: inline-block;
+	padding: 6px 12px;
+	margin: 8px 0;
+	background: #fff;
+	border: 1px solid #ced4da;
+	border-radius: 4px;
+	font-size: 18px;
+	font-weight: 700;
+	letter-spacing: 0.05em;
+	color: #212529;
+}
+
+.dlit-captcha-input {
+	display: block;
+	width: 100px;
+	margin-top: 8px;
+	padding: 6px 10px;
+	font-size: 16px;
+	border: 1px solid #ced4da;
+	border-radius: 4px;
+	background: #fff;
+	color: #212529;
+	transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.dlit-captcha-input:focus {
+	border-color: #80bdff;
+	outline: 0;
+	box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+/* Login / Register pages — wider layout */
+body.login .dlit-math-captcha-wrap {
+	margin: 16px 0;
+}
