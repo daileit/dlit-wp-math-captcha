@@ -197,21 +197,23 @@ class Dlit_Math_Captcha {
 	public static function render( $field_id = 'dlit_captcha_answer', $simple_layout = true ) {
 		$data  = self::generate();
 		$nonce = wp_create_nonce( self::NONCE_ACTION );
+		$label = esc_html__( 'Math Captcha', 'dlit-wp-math-captcha' );
 
 		$html  = '<div class="dlit-math-captcha-wrap' . ( $simple_layout ? ' dlit-math-captcha-simple' : '' ) . '">';
 
 		if ( ! $simple_layout ) {
-			$label = esc_html__( 'Math Captcha', 'dlit-wp-math-captcha' );
 			$note  = esc_html__( 'Please solve this math problem to prove you are human:', 'dlit-wp-math-captcha' );
 
 			$html .= '<label for="' . esc_attr( $field_id ) . '">';
 			$html .= '<strong>' . $label . '</strong><br>';
 			$html .= '<span class="dlit-captcha-note">' . $note . '</span>';
 			$html .= '</label>';
+		} else {
+			$html .= '<label for="' . esc_attr( $field_id ) . '" class="dlit-captcha-simple-title">' . $label . '</label>';
 		}
 
 		$html .= '<div class="dlit-captcha-question" aria-label="' . esc_attr__( 'Math question', 'dlit-wp-math-captcha' ) . '">';
-		$html .= wp_kses( $data['question'] . ' = ?', array() );
+		$html .= wp_kses( $data['question'] . ( $simple_layout ? ' =' : ' = ?' ), array() );
 		$html .= '</div>';
 		$html .= '<input type="number" id="' . esc_attr( $field_id ) . '" name="dlit_captcha_answer" class="dlit-captcha-input" required autocomplete="off" aria-label="' . esc_attr__( 'Math captcha answer', 'dlit-wp-math-captcha' ) . '">';
 		$html .= '<input type="hidden" name="dlit_captcha_token" value="' . esc_attr( $data['token'] ) . '">';
