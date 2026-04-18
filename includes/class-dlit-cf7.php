@@ -6,11 +6,11 @@
  * captcha widget and validates the answer on submission.
  *
  * Usage in CF7 form editor:
- *   [math_captcha]                        — uses settings defaults
- *   [math_captcha id:my-id]               — custom HTML id on the input
- *   [math_captcha class:simple]           — force simple one-line layout
- *   [math_captcha class:full]             — force full layout
- *   [math_captcha id:my-id class:simple]  — combine options
+ *   [math_captcha]                    — uses settings defaults
+ *   [math_captcha id:my-id]           — custom HTML id on the input
+ *   [math_captcha simple]             — force simple one-line layout
+ *   [math_captcha full]               — force full layout with note
+ *   [math_captcha id:my-id simple]    — combine options
  *
  * @package Dlit_WP_Math_Captcha
  */
@@ -57,18 +57,16 @@ class Dlit_Math_Captcha_CF7 {
 	/**
 	 * Resolve layout mode from tag options, falling back to plugin settings.
 	 *
-	 * Supports `class:simple` and `class:full` options on the tag.
+	 * Supports bare flag options `simple` and `full` on the tag.
 	 *
 	 * @param WPCF7_FormTag $tag CF7 form-tag object.
 	 * @return bool True for simple/compact layout, false for full layout.
 	 */
 	private function resolve_simple_layout( $tag ) {
-		$classes = $tag->get_class_option();
-
-		if ( false !== strpos( $classes, 'simple' ) ) {
+		if ( $tag->has_option( 'simple' ) ) {
 			return true;
 		}
-		if ( false !== strpos( $classes, 'full' ) ) {
+		if ( $tag->has_option( 'full' ) ) {
 			return false;
 		}
 

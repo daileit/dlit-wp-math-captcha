@@ -4,7 +4,7 @@ Tags: captcha, math captcha, spam protection, comments, woocommerce, contact for
 Requires at least: 5.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.3.2
+Stable tag: 1.3.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -41,6 +41,13 @@ Features:
 Add this tag in your CF7 form:
 
 [math_captcha]
+
+Optional flags (no colons):
+
+[math_captcha simple]       — force compact one-line layout
+[math_captcha full]         — force full layout with description
+[math_captcha id:my-id]     — set a custom HTML id on the input
+[math_captcha id:my-id simple]  — combine
 Tag syntax	Effect
 [math_captcha]	uses Settings → Display Mode setting
 [math_captcha class:simple]	forces simple one-line layout
