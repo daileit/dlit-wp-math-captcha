@@ -27,7 +27,8 @@ The difficulty is fully configurable: choose the number of digits in the answer 
 
 ## Installation
 
-1. Upload the `dlit-wp-math-captcha` folder to `/wp-content/plugins/`.
+1. Zip the folder with `zip -r dlit-wp-math-captcha.zip . -x "*/.*" ".git*"`
+2. Upload and unzip the `dlit-wp-math-captcha.zip` to `/wp-content/plugins/`. You can also use the plugin page to upload.
 2. Activate the plugin through the **Plugins** screen in WordPress.
 3. Go to **Settings → Math Captcha** to configure which forms are protected and the difficulty.
 
