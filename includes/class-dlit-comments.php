@@ -30,8 +30,11 @@ class Dlit_Math_Captcha_Comments {
 	 * Render the captcha field inside the comment form.
 	 */
 	public function render_captcha() {
+		$settings = dlit_math_captcha_get_settings();
+		$simple   = ! empty( $settings['simple_comments'] );
+
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- render() returns sanitised HTML.
-		echo Dlit_Math_Captcha::render( 'dlit_captcha_answer_comment' );
+		echo Dlit_Math_Captcha::render( 'dlit_captcha_answer_comment', $simple );
 	}
 
 	/**

@@ -45,6 +45,11 @@ function dlit_math_captcha_defaults() {
 		'enable_register'  => 0,
 		'enable_woo'       => 0,
 		'enable_cf7'       => 0,
+		'simple_comments'  => 1,
+		'simple_login'     => 1,
+		'simple_register'  => 1,
+		'simple_woo'       => 1,
+		'simple_cf7'       => 1,
 		'num_digits'       => 1,
 		'operations'       => array( 'addition' ),
 	);

@@ -39,6 +39,22 @@ class Dlit_Math_Captcha {
 	const NONCE_ACTION = 'dlit_math_captcha_nonce';
 
 	/**
+	 * Return min/max bounds for an answer with the requested number of digits.
+	 *
+	 * @param int $num_digits Number of digits.
+	 * @return array{min:int,max:int}
+	 */
+	private static function get_answer_bounds( $num_digits ) {
+		$min = ( 1 === $num_digits ) ? 1 : intval( pow( 10, $num_digits - 1 ) );
+		$max = intval( pow( 10, $num_digits ) ) - 1;
+
+		return array(
+			'min' => $min,
+			'max' => $max,
+		);
+	}
+
+	/**
 	 * Generate a new captcha question and return its data.
 	 *
 	 * @return array {
@@ -61,36 +77,73 @@ class Dlit_Math_Captcha {
 
 		$operation = $operations[ array_rand( $operations ) ];
 
-		$max = intval( str_repeat( '9', $num_digits ) );
-		$min = intval( str_repeat( '1', $num_digits ) );
+		$bounds      = self::get_answer_bounds( $num_digits );
+		$answer_min  = $bounds['min'];
+		$answer_max  = $bounds['max'];
+		$operand_max = intval( pow( 10, $num_digits + 1 ) ) - 1;
 
-		$a = wp_rand( $min, $max );
-		$b = wp_rand( $min, $max );
+		$a = 0;
+		$b = 0;
+		$answer = 0;
+		$question = '';
 
 		switch ( $operation ) {
 			case 'subtraction':
-				// Ensure result is non-negative.
-				if ( $a < $b ) {
-					list( $a, $b ) = array( $b, $a );
-				}
-				$answer   = $a - $b;
+				$answer = wp_rand( $answer_min, $answer_max );
+				$max_b  = max( 1, $operand_max - $answer );
+				$b      = wp_rand( 1, $max_b );
+				$a      = $answer + $b;
 				$question = sprintf( '%d &minus; %d', $a, $b );
 				break;
 
 			case 'multiplication':
-				// For multiplication keep numbers manageable (1–9 per operand regardless
-				// of the digit setting so the product stays human-readable).
-				// Always use the range [1, 9] for multiplication to avoid invalid
-				// wp_rand() calls when $min (from num_digits > 1) exceeds 9.
-				$a      = wp_rand( 1, 9 );
-				$b      = wp_rand( 1, 9 );
-				$answer   = $a * $b;
+				for ( $i = 0; $i < 120; $i++ ) {
+					$a = wp_rand( 2, min( 99, $operand_max ) );
+					$b = wp_rand( 2, min( 99, $operand_max ) );
+					$product = $a * $b;
+
+					if ( $product >= $answer_min && $product <= $answer_max ) {
+						$answer = $product;
+						break;
+					}
+				}
+
+				if ( 0 === $answer ) {
+					$answer = wp_rand( $answer_min, $answer_max );
+					$divisors = array();
+					$limit    = (int) floor( sqrt( $answer ) );
+					for ( $d = 2; $d <= $limit; $d++ ) {
+						if ( 0 === $answer % $d ) {
+							$other = (int) ( $answer / $d );
+							if ( $d <= $operand_max && $other <= $operand_max ) {
+								$divisors[] = array( $d, $other );
+							}
+						}
+					}
+
+					if ( ! empty( $divisors ) ) {
+						$pair = $divisors[ array_rand( $divisors ) ];
+						$a    = $pair[0];
+						$b    = $pair[1];
+					} else {
+						$a = 1;
+						$b = $answer;
+					}
+				}
+
 				$question = sprintf( '%d &times; %d', $a, $b );
 				break;
 
 			case 'addition':
 			default:
-				$answer   = $a + $b;
+				$answer = wp_rand( $answer_min, $answer_max );
+				if ( $answer <= 1 ) {
+					$a = 1;
+					$b = 0;
+				} else {
+					$a = wp_rand( 1, $answer - 1 );
+					$b = $answer - $a;
+				}
 				$question = sprintf( '%d + %d', $a, $b );
 				break;
 		}
@@ -137,30 +190,30 @@ class Dlit_Math_Captcha {
 	/**
 	 * Render the captcha HTML (question + hidden token + answer input).
 	 *
-	 * @param string $field_id   Optional CSS id for the answer input. Defaults to 'dlit_captcha_answer'.
+	 * @param string $field_id      Optional CSS id for the answer input. Defaults to 'dlit_captcha_answer'.
+	 * @param bool   $simple_layout Whether to render a compact one-line layout.
 	 * @return string HTML markup.
 	 */
-	public static function render( $field_id = 'dlit_captcha_answer' ) {
+	public static function render( $field_id = 'dlit_captcha_answer', $simple_layout = true ) {
 		$data  = self::generate();
 		$nonce = wp_create_nonce( self::NONCE_ACTION );
 
-		$label = esc_html__( 'Math Captcha', 'dlit-wp-math-captcha' );
-		$note  = esc_html__( 'Please solve this math problem to prove you are human:', 'dlit-wp-math-captcha' );
+		$html  = '<div class="dlit-math-captcha-wrap' . ( $simple_layout ? ' dlit-math-captcha-simple' : '' ) . '">';
 
-		$html  = '<div class="dlit-math-captcha-wrap">';
-		$html .= '<label for="' . esc_attr( $field_id ) . '">';
-		$html .= '<strong>' . $label . '</strong><br>';
-		$html .= '<span class="dlit-captcha-note">' . $note . '</span>';
-		$html .= '</label>';
+		if ( ! $simple_layout ) {
+			$label = esc_html__( 'Math Captcha', 'dlit-wp-math-captcha' );
+			$note  = esc_html__( 'Please solve this math problem to prove you are human:', 'dlit-wp-math-captcha' );
+
+			$html .= '<label for="' . esc_attr( $field_id ) . '">';
+			$html .= '<strong>' . $label . '</strong><br>';
+			$html .= '<span class="dlit-captcha-note">' . $note . '</span>';
+			$html .= '</label>';
+		}
+
 		$html .= '<div class="dlit-captcha-question" aria-label="' . esc_attr__( 'Math question', 'dlit-wp-math-captcha' ) . '">';
-		$html .= wp_kses(
-			$data['question'] . ' = ?',
-			array(
-				'span' => array( 'class' => array() ),
-			)
-		);
+		$html .= wp_kses( $data['question'] . ' = ?', array() );
 		$html .= '</div>';
-		$html .= '<input type="number" id="' . esc_attr( $field_id ) . '" name="dlit_captcha_answer" class="dlit-captcha-input" required autocomplete="off" aria-label="' . esc_attr__( 'Your answer', 'dlit-wp-math-captcha' ) . '">';
+		$html .= '<input type="number" id="' . esc_attr( $field_id ) . '" name="dlit_captcha_answer" class="dlit-captcha-input" required autocomplete="off" aria-label="' . esc_attr__( 'Math captcha answer', 'dlit-wp-math-captcha' ) . '">';
 		$html .= '<input type="hidden" name="dlit_captcha_token" value="' . esc_attr( $data['token'] ) . '">';
 		$html .= wp_nonce_field( self::NONCE_ACTION, 'dlit_captcha_nonce_field', true, false );
 		$html .= '</div>';

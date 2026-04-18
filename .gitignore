@@ -19,5 +19,6 @@ Thumbs.db
 # WordPress-specific build artefacts
 *.pots
 
-#draft files
+#draft filess
 *draft.*
+*.zip

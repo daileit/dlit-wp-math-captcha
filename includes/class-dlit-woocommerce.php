@@ -34,8 +34,11 @@ class Dlit_Math_Captcha_WooCommerce {
 	 * Render the captcha field inside the WooCommerce review form.
 	 */
 	public function render_captcha() {
+		$settings = dlit_math_captcha_get_settings();
+		$simple   = ! empty( $settings['simple_woo'] );
+
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- render() returns sanitised HTML.
-		echo Dlit_Math_Captcha::render( 'dlit_captcha_answer_woo' );
+		echo Dlit_Math_Captcha::render( 'dlit_captcha_answer_woo', $simple );
 	}
 
 	/**

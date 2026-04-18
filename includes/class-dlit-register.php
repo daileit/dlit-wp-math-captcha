@@ -29,8 +29,11 @@ class Dlit_Math_Captcha_Register {
 	 * Render the captcha field inside the registration form.
 	 */
 	public function render_captcha() {
+		$settings = dlit_math_captcha_get_settings();
+		$simple   = ! empty( $settings['simple_register'] );
+
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- render() returns sanitised HTML.
-		echo Dlit_Math_Captcha::render( 'dlit_captcha_answer_register' );
+		echo Dlit_Math_Captcha::render( 'dlit_captcha_answer_register', $simple );
 	}
 
 	/**

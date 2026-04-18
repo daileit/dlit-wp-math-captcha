@@ -85,6 +85,33 @@ class Dlit_Math_Captcha_Admin {
 			);
 		}
 
+		// ── Display section ───────────────────────────────────────────────
+		add_settings_section(
+			'dlit_display',
+			__( 'Display Mode', 'dlit-wp-math-captcha' ),
+			array( $this, 'render_display_section' ),
+			'dlit-math-captcha'
+		);
+
+		$display_modes = array(
+			'simple_comments' => __( 'Comments: Simple one-line layout', 'dlit-wp-math-captcha' ),
+			'simple_login'    => __( 'Login: Simple one-line layout', 'dlit-wp-math-captcha' ),
+			'simple_register' => __( 'Registration: Simple one-line layout', 'dlit-wp-math-captcha' ),
+			'simple_woo'      => __( 'WooCommerce Reviews: Simple one-line layout', 'dlit-wp-math-captcha' ),
+			'simple_cf7'      => __( 'Contact Form 7: Simple one-line layout', 'dlit-wp-math-captcha' ),
+		);
+
+		foreach ( $display_modes as $key => $label ) {
+			add_settings_field(
+				$key,
+				$label,
+				array( $this, 'render_checkbox_field' ),
+				'dlit-math-captcha',
+				'dlit_display',
+				array( 'key' => $key )
+			);
+		}
+
 		// ── Difficulty section ────────────────────────────────────────────
 		add_settings_section(
 			'dlit_difficulty',
@@ -126,6 +153,13 @@ class Dlit_Math_Captcha_Admin {
 		echo '<p>' . esc_html__( 'Configure the difficulty of the generated math questions.', 'dlit-wp-math-captcha' ) . '</p>';
 	}
 
+	/**
+	 * Render the display section description.
+	 */
+	public function render_display_section() {
+		echo '<p>' . esc_html__( 'Use the simple one-line captcha layout to save space and avoid affecting UI.', 'dlit-wp-math-captcha' ) . '</p>';
+	}
+
 	// ── Field callbacks ───────────────────────────────────────────────────
 
 	/**
@@ -161,7 +195,7 @@ class Dlit_Math_Captcha_Admin {
 			);
 		}
 		echo '</select>';
-		echo '<p class="description">' . esc_html__( 'Each operand will be a number with this many digits (1–3).', 'dlit-wp-math-captcha' ) . '</p>';
+		echo '<p class="description">' . esc_html__( 'Captcha answer will have this many digits (1–3). Operands may use one extra digit.', 'dlit-wp-math-captcha' ) . '</p>';
 	}
 
 	/**
@@ -200,7 +234,18 @@ class Dlit_Math_Captcha_Admin {
 	public function sanitize_settings( $input ) {
 		$clean = array();
 
-		$boolean_keys = array( 'enable_comments', 'enable_login', 'enable_register', 'enable_woo', 'enable_cf7' );
+		$boolean_keys = array(
+			'enable_comments',
+			'enable_login',
+			'enable_register',
+			'enable_woo',
+			'enable_cf7',
+			'simple_comments',
+			'simple_login',
+			'simple_register',
+			'simple_woo',
+			'simple_cf7',
+		);
 		foreach ( $boolean_keys as $key ) {
 			$clean[ $key ] = ! empty( $input[ $key ] ) ? 1 : 0;
 		}

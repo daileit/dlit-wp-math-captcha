@@ -56,12 +56,14 @@ class Dlit_Math_Captcha_CF7 {
 	 */
 	public function render_form_tag( $tag ) {
 		$field_id = 'dlit_captcha_answer_cf7';
+		$settings = dlit_math_captcha_get_settings();
+		$simple   = ! empty( $settings['simple_cf7'] );
 
 		if ( ! empty( $tag->get_id_option() ) ) {
 			$field_id = esc_attr( $tag->get_id_option() );
 		}
 
-		return Dlit_Math_Captcha::render( $field_id );
+		return Dlit_Math_Captcha::render( $field_id, $simple );
 	}
 
 	/**
