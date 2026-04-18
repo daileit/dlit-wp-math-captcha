@@ -44,6 +44,14 @@ class Dlit_Math_Captcha_Comments {
 	 * @return array Unmodified comment data when validation passes.
 	 */
 	public function validate_captcha( $comment_data ) {
+		// WooCommerce product reviews also pass through preprocess_comment.
+		// Let the WooCommerce integration handle those submissions to avoid
+		// consuming a single-use token twice.
+		$comment_type = isset( $_POST['comment_type'] ) ? sanitize_text_field( wp_unslash( $_POST['comment_type'] ) ) : '';
+		if ( 'review' === $comment_type || isset( $_POST['rating'] ) ) {
+			return $comment_data;
+		}
+
 		// Skip validation for logged-in users who have already approved comments.
 		if ( is_user_logged_in() ) {
 			$user = wp_get_current_user();
