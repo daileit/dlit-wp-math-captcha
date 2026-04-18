@@ -38,7 +38,6 @@
 	font-size: 18px;
 	font-weight: 700;
 	letter-spacing: 0.05em;
-	color: #212529;
 }
 
 .dlit-captcha-input {
@@ -74,37 +73,41 @@
 }
 
 .dlit-captcha-simple-right {
-	display: flex;
-	align-items: center;
+	display: flex !important;
+	align-items: center !important;
 	gap: 6px;
 }
 
 .dlit-captcha-simple-label {
-	display: flex;
-	align-items: center;
+	display: flex !important;
+	align-items: center !important;
 	gap: 4px;
 }
 
 .dlit-captcha-simple-title {
-	display: inline;
-	margin: 0;
-	padding: 0;
-	font-size: 14px;
-	font-weight: 600;
-	color: #333;
-	line-height: 1;
+	display: inline !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	font-size: 14px !important;
+	font-weight: 600 !important;
+	color: inherit !important;
+	line-height: 1 !important;
+	vertical-align: middle !important;
 }
 
 .dlit-captcha-info {
-	display: inline-flex;
-	align-items: center;
-	text-decoration: none;
+	display: inline-flex !important;
+	align-items: center !important;
+	text-decoration: none !important;
 	position: relative;
 	cursor: pointer;
 	flex-shrink: 0;
 	font-size: 14px;
 	line-height: 1;
 	opacity: 0.7;
+	color: inherit !important;
+	vertical-align: top !important;
+	margin-top: -3px !important;
 }
 
 .dlit-captcha-info:hover {
@@ -134,27 +137,31 @@
 }
 
 .dlit-math-captcha-simple .dlit-captcha-question {
-	display: inline-flex;
-	align-items: center;
-	margin: 0;
-	padding: 0;
-	background: transparent;
-	border: 0;
-	border-radius: 0;
-	font-size: 14px;
-	font-weight: 600;
-	letter-spacing: 0;
-	line-height: 1;
+	display: inline-flex !important;
+	align-items: center !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	background: transparent !important;
+	border: 0 !important;
+	border-radius: 0 !important;
+	font-size: 14px !important;
+	font-weight: 600 !important;
+	letter-spacing: 0 !important;
+	line-height: 1 !important;
+	color: inherit !important;
+	vertical-align: middle !important;
 }
 
 .dlit-math-captcha-simple .dlit-captcha-input {
-	display: inline-block;
-	width: 70px;
-	margin-top: 0;
-	padding: 3px 6px;
-	font-size: 14px;
-	height: auto;
-	vertical-align: middle;
+	display: inline-block !important;
+	width: 70px !important;
+	margin-top: 0 !important;
+	padding: 3px 6px !important;
+	font-size: 14px !important;
+	height: auto !important;
+	vertical-align: middle !important;
+	color: inherit !important;
+	box-sizing: border-box !important;
 }
 
 /* Login / Register pages — wider layout */
