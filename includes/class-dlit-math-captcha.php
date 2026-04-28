@@ -80,70 +80,47 @@ class Dlit_Math_Captcha {
 		$bounds      = self::get_answer_bounds( $num_digits );
 		$answer_min  = $bounds['min'];
 		$answer_max  = $bounds['max'];
+		$operand_min = $answer_min;
 		$operand_max = intval( pow( 10, $num_digits + 1 ) ) - 1;
 
-		$a = 0;
-		$b = 0;
-		$answer = 0;
+		$answer = wp_rand( $answer_min, $answer_max );
+		$a      = wp_rand( $operand_min, $operand_max );
+		$b      = 0;
 		$question = '';
 
 		switch ( $operation ) {
+			case 'addition':
+				if ( $a > $answer ) {
+					$a = wp_rand( $answer_min, $answer );
+				}
+				$b = $answer - $a;
+				$question = sprintf( '%d + %d', $a, $b );
+				break;
+
 			case 'subtraction':
-				$answer = wp_rand( $answer_min, $answer_max );
-				$max_b  = max( 1, $operand_max - $answer );
-				$b      = wp_rand( 1, $max_b );
-				$a      = $answer + $b;
+				if ( $a < $answer ) {
+					$a = wp_rand( $answer, $operand_max );
+				}
+				$b = $a - $answer;
 				$question = sprintf( '%d &minus; %d', $a, $b );
 				break;
 
 			case 'multiplication':
-				for ( $i = 0; $i < 120; $i++ ) {
-					$a = wp_rand( 2, min( 99, $operand_max ) );
-					$b = wp_rand( 2, min( 99, $operand_max ) );
-					$product = $a * $b;
-
-					if ( $product >= $answer_min && $product <= $answer_max ) {
-						$answer = $product;
-						break;
-					}
-				}
-
-				if ( 0 === $answer ) {
-					$answer = wp_rand( $answer_min, $answer_max );
-					$divisors = array();
-					$limit    = (int) floor( sqrt( $answer ) );
-					for ( $d = 2; $d <= $limit; $d++ ) {
-						if ( 0 === $answer % $d ) {
-							$other = (int) ( $answer / $d );
-							if ( $d <= $operand_max && $other <= $operand_max ) {
-								$divisors[] = array( $d, $other );
-							}
-						}
-					}
-
-					if ( ! empty( $divisors ) ) {
-						$pair = $divisors[ array_rand( $divisors ) ];
-						$a    = $pair[0];
-						$b    = $pair[1];
-					} else {
-						$a = 1;
-						$b = $answer;
-					}
+				if ( 0 === $answer % $a ) {
+					$b = (int) ( $answer / $a );
+				} else {
+					$a = $answer;
+					$b = 1;
 				}
 
 				$question = sprintf( '%d &times; %d', $a, $b );
 				break;
 
-			case 'addition':
 			default:
-				$answer = wp_rand( $answer_min, $answer_max );
-				if ( $answer <= 1 ) {
-					$a = 1;
-					$b = 0;
-				} else {
-					$a = wp_rand( 1, $answer - 1 );
-					$b = $answer - $a;
+				if ( $a > $answer ) {
+					$a = wp_rand( $answer_min, $answer );
 				}
+				$b = $answer - $a;
 				$question = sprintf( '%d + %d', $a, $b );
 				break;
 		}
