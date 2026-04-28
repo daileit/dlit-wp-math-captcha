@@ -64,9 +64,8 @@
 	align-items: center !important;
 	justify-content: space-between !important;
 	width: 100% !important;
+	max-width: 250px !important;
 	gap: 6px;
-	margin: 8px 0;
-	padding: 0 !important;
 	background: transparent !important;
 	border: 0 !important;
 	box-sizing: border-box !important;
@@ -97,7 +96,6 @@
 	display: inline !important;
 	margin: 0 !important;
 	padding: 0 !important;
-	font-size: 14px !important;
 	font-weight: 600 !important;
 	color: inherit !important;
 	line-height: 1 !important;
@@ -111,10 +109,9 @@
 	position: relative;
 	cursor: pointer;
 	flex-shrink: 0;
-	font-size: 14px;
-	line-height: 1;
-	opacity: 0.7;
+	opacity: 1;
 	color: inherit !important;
+	padding-left: 5px;
 	margin-top: -2px;
 }
 
@@ -163,7 +160,6 @@
 .dlit-math-captcha-simple .dlit-captcha-input {
 	display: inline-block !important;
 	width: 70px !important;
-	margin-top: 0 !important;
 	padding: 3px 6px !important;
 	font-size: 14px !important;
 	height: auto !important;

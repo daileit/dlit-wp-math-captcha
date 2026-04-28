@@ -215,7 +215,7 @@ class Dlit_Math_Captcha {
 		} else {
 			$tooltip = esc_attr__( 'Solve this math problem to prove you are human.', 'dlit-math-captcha' );
 			$html   .= '<span class="dlit-captcha-simple-label">';
-			$html   .= '<a href="' . esc_url( $plugin_url ) . '" target="_blank" rel="noopener noreferrer" class="dlit-captcha-info" aria-label="' . esc_attr__( 'About Math Captcha', 'dlit-math-captcha' ) . '" data-tooltip="' . $tooltip . '">&#8505;</a>';
+			$html   .= '<a href="' . esc_url( $plugin_url ) . '" target="_blank" rel="noopener noreferrer" class="dlit-captcha-info" aria-label="' . esc_attr__( 'About Math Captcha', 'dlit-math-captcha' ) . '" data-tooltip="' . $tooltip . '">�</a>';
 			$html   .= '<label for="' . esc_attr( $field_id ) . '" class="dlit-captcha-simple-title">' . esc_html__( 'Math:', 'dlit-math-captcha' ) . '</label>';
 			$html   .= '</span>';
 		}
