@@ -9,12 +9,17 @@ bump_ACTION := $(filter patch minor major sync,$(MAKECMDGOALS))
 .PHONY: zip bump patch minor major sync
 
 zip:
-	@cd .. && zip -r "$(CURDIR)/$(ZIP_NAME)" "$(PLUGIN_SLUG)" \
-		-x "$(PLUGIN_SLUG)/*/.*" \
-		-x "$(PLUGIN_SLUG)/.git*" \
-		-x "$(PLUGIN_SLUG)/Makefile" \
-		-x "$(PLUGIN_SLUG)/*.zip" \
-		-x "$(PLUGIN_SLUG)/README.md"
+	@tmp=$$(mktemp -d) && \
+	rsync -a \
+		--exclude='.*' \
+		--exclude='.git/' \
+		--exclude='Makefile' \
+		--exclude='*.zip' \
+		--exclude='README.md' \
+		. "$$tmp/$(PLUGIN_SLUG)/" && \
+	cd "$$tmp" && zip -r "$(CURDIR)/$(ZIP_NAME)" "$(PLUGIN_SLUG)" && \
+	rm -rf "$$tmp" && \
+	echo "Created $(ZIP_NAME)"
 
 bump:
 	@action="$(bump_ACTION)"; \
