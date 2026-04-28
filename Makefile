@@ -2,7 +2,7 @@ SHELL := /bin/sh
 
 PLUGIN_FILE := $(shell awk '/^[[:space:]]*\* Plugin Name:/ { print FILENAME; exit }' ./*.php)
 VERSION := $(shell awk -F': *' '/^[[:space:]]*\* Version:/ { print $$2; exit }' $(PLUGIN_FILE))
-ZIP_NAME := dlit-wp-math-captcha-v$(VERSION).zip
+ZIP_NAME := dlit-math-captcha-v$(VERSION).zip
 bump_ACTION := $(filter patch minor major sync,$(MAKECMDGOALS))
 
 .PHONY: zip bump patch minor major sync

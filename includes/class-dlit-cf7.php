@@ -14,7 +14,7 @@
  *   [math_captcha dark]               — force dark text mode
  *   [math_captcha id:my-id simple]    — combine options
  *
- * @package Dlit_WP_Math_Captcha
+ * @package Dlit_Easy_Math_Captcha
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

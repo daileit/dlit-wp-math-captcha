@@ -4,7 +4,7 @@
  *
  * Adds the math captcha to the comment form and validates it on submission.
  *
- * @package Dlit_WP_Math_Captcha
+ * @package Dlit_Easy_Math_Captcha
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -68,7 +68,7 @@ class Dlit_Math_Captcha_Comments {
 		if ( is_wp_error( $result ) ) {
 			wp_die(
 				esc_html( $result->get_error_message() ),
-				esc_html__( 'Math Captcha Error', 'dlit-wp-math-captcha' ),
+				esc_html__( 'Math Captcha Error', 'dlit-math-captcha' ),
 				array(
 					'response'  => 400,
 					'back_link' => true,

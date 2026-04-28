@@ -4,7 +4,7 @@
  *
  * Adds the math captcha to the login form and validates it on submission.
  *
- * @package Dlit_WP_Math_Captcha
+ * @package Dlit_Easy_Math_Captcha
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

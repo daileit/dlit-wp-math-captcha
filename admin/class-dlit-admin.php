@@ -38,8 +38,8 @@ class Dlit_Math_Captcha_Admin {
 	 */
 	public function add_settings_page() {
 		add_options_page(
-			__( 'Math Captcha Settings', 'dlit-wp-math-captcha' ),
-			__( 'Math Captcha', 'dlit-wp-math-captcha' ),
+			__( 'Math Captcha Settings', 'dlit-math-captcha' ),
+			__( 'Math Captcha', 'dlit-math-captcha' ),
 			'manage_options',
 			'dlit-math-captcha',
 			array( $this, 'render_settings_page' )
@@ -61,17 +61,17 @@ class Dlit_Math_Captcha_Admin {
 		// ── Integration section ───────────────────────────────────────────
 		add_settings_section(
 			'dlit_integrations',
-			__( 'Integrations', 'dlit-wp-math-captcha' ),
+			__( 'Integrations', 'dlit-math-captcha' ),
 			array( $this, 'render_integrations_section' ),
 			'dlit-math-captcha'
 		);
 
 		$integrations = array(
-			'enable_comments' => __( 'WordPress Comments', 'dlit-wp-math-captcha' ),
-			'enable_login'    => __( 'Login Page', 'dlit-wp-math-captcha' ),
-			'enable_register' => __( 'Registration Page', 'dlit-wp-math-captcha' ),
-			'enable_woo'      => __( 'WooCommerce Product Reviews (requires WooCommerce)', 'dlit-wp-math-captcha' ),
-			'enable_cf7'      => __( 'Contact Form 7 (requires CF7)', 'dlit-wp-math-captcha' ),
+			'enable_comments' => __( 'WordPress Comments', 'dlit-math-captcha' ),
+			'enable_login'    => __( 'Login Page', 'dlit-math-captcha' ),
+			'enable_register' => __( 'Registration Page', 'dlit-math-captcha' ),
+			'enable_woo'      => __( 'WooCommerce Product Reviews (requires WooCommerce)', 'dlit-math-captcha' ),
+			'enable_cf7'      => __( 'Contact Form 7 (requires CF7)', 'dlit-math-captcha' ),
 		);
 
 		foreach ( $integrations as $key => $label ) {
@@ -88,17 +88,17 @@ class Dlit_Math_Captcha_Admin {
 		// ── Display section ───────────────────────────────────────────────
 		add_settings_section(
 			'dlit_display',
-			__( 'Display Mode', 'dlit-wp-math-captcha' ),
+			__( 'Display Mode', 'dlit-math-captcha' ),
 			array( $this, 'render_display_section' ),
 			'dlit-math-captcha'
 		);
 
 		$display_modes = array(
-			'simple_comments' => __( 'Comments: Simple one-line layout', 'dlit-wp-math-captcha' ),
-			'simple_login'    => __( 'Login: Simple one-line layout', 'dlit-wp-math-captcha' ),
-			'simple_register' => __( 'Registration: Simple one-line layout', 'dlit-wp-math-captcha' ),
-			'simple_woo'      => __( 'WooCommerce Reviews: Simple one-line layout', 'dlit-wp-math-captcha' ),
-			'simple_cf7'      => __( 'Contact Form 7: Simple one-line layout', 'dlit-wp-math-captcha' ),
+			'simple_comments' => __( 'Comments: Simple one-line layout', 'dlit-math-captcha' ),
+			'simple_login'    => __( 'Login: Simple one-line layout', 'dlit-math-captcha' ),
+			'simple_register' => __( 'Registration: Simple one-line layout', 'dlit-math-captcha' ),
+			'simple_woo'      => __( 'WooCommerce Reviews: Simple one-line layout', 'dlit-math-captcha' ),
+			'simple_cf7'      => __( 'Contact Form 7: Simple one-line layout', 'dlit-math-captcha' ),
 		);
 
 		foreach ( $display_modes as $key => $label ) {
@@ -115,14 +115,14 @@ class Dlit_Math_Captcha_Admin {
 		// ── Difficulty section ────────────────────────────────────────────
 		add_settings_section(
 			'dlit_difficulty',
-			__( 'Difficulty', 'dlit-wp-math-captcha' ),
+			__( 'Difficulty', 'dlit-math-captcha' ),
 			array( $this, 'render_difficulty_section' ),
 			'dlit-math-captcha'
 		);
 
 		add_settings_field(
 			'num_digits',
-			__( 'Number of digits per operand', 'dlit-wp-math-captcha' ),
+			__( 'Number of digits per operand', 'dlit-math-captcha' ),
 			array( $this, 'render_num_digits_field' ),
 			'dlit-math-captcha',
 			'dlit_difficulty'
@@ -130,7 +130,7 @@ class Dlit_Math_Captcha_Admin {
 
 		add_settings_field(
 			'operations',
-			__( 'Allowed operations', 'dlit-wp-math-captcha' ),
+			__( 'Allowed operations', 'dlit-math-captcha' ),
 			array( $this, 'render_operations_field' ),
 			'dlit-math-captcha',
 			'dlit_difficulty'
@@ -143,21 +143,21 @@ class Dlit_Math_Captcha_Admin {
 	 * Render the integrations section description.
 	 */
 	public function render_integrations_section() {
-		echo '<p>' . esc_html__( 'Choose where the math captcha should appear.', 'dlit-wp-math-captcha' ) . '</p>';
+		echo '<p>' . esc_html__( 'Choose where the math captcha should appear.', 'dlit-math-captcha' ) . '</p>';
 	}
 
 	/**
 	 * Render the difficulty section description.
 	 */
 	public function render_difficulty_section() {
-		echo '<p>' . esc_html__( 'Configure the difficulty of the generated math questions.', 'dlit-wp-math-captcha' ) . '</p>';
+		echo '<p>' . esc_html__( 'Configure the difficulty of the generated math questions.', 'dlit-math-captcha' ) . '</p>';
 	}
 
 	/**
 	 * Render the display section description.
 	 */
 	public function render_display_section() {
-		echo '<p>' . esc_html__( 'Use the simple one-line captcha layout to save space and avoid affecting UI.', 'dlit-wp-math-captcha' ) . '</p>';
+		echo '<p>' . esc_html__( 'Use the simple one-line captcha layout to save space and avoid affecting UI.', 'dlit-math-captcha' ) . '</p>';
 	}
 
 	// ── Field callbacks ───────────────────────────────────────────────────
@@ -195,7 +195,7 @@ class Dlit_Math_Captcha_Admin {
 			);
 		}
 		echo '</select>';
-		echo '<p class="description">' . esc_html__( 'Captcha answer will have this many digits (1–3). Operands may use one extra digit.', 'dlit-wp-math-captcha' ) . '</p>';
+		echo '<p class="description">' . esc_html__( 'Captcha answer will have this many digits (1–3). Operands may use one extra digit.', 'dlit-math-captcha' ) . '</p>';
 	}
 
 	/**
@@ -206,9 +206,9 @@ class Dlit_Math_Captcha_Admin {
 		$selected   = (array) $settings['operations'];
 
 		$all_ops = array(
-			'addition'       => __( 'Addition (+)', 'dlit-wp-math-captcha' ),
-			'subtraction'    => __( 'Subtraction (−)', 'dlit-wp-math-captcha' ),
-			'multiplication' => __( 'Multiplication (×)', 'dlit-wp-math-captcha' ),
+			'addition'       => __( 'Addition (+)', 'dlit-math-captcha' ),
+			'subtraction'    => __( 'Subtraction (−)', 'dlit-math-captcha' ),
+			'multiplication' => __( 'Multiplication (×)', 'dlit-math-captcha' ),
 		);
 
 		foreach ( $all_ops as $op => $label ) {
@@ -220,7 +220,7 @@ class Dlit_Math_Captcha_Admin {
 				esc_html( $label )
 			);
 		}
-		echo '<p class="description">' . esc_html__( 'At least one operation must be selected.', 'dlit-wp-math-captcha' ) . '</p>';
+		echo '<p class="description">' . esc_html__( 'At least one operation must be selected.', 'dlit-math-captcha' ) . '</p>';
 	}
 
 	// ── Settings sanitisation ─────────────────────────────────────────────
@@ -263,7 +263,7 @@ class Dlit_Math_Captcha_Admin {
 			add_settings_error(
 				self::OPTION_KEY,
 				'dlit_ops_required',
-				__( 'At least one operation must be selected. Addition has been selected by default.', 'dlit-wp-math-captcha' )
+				__( 'At least one operation must be selected. Addition has been selected by default.', 'dlit-math-captcha' )
 			);
 		}
 
@@ -283,7 +283,7 @@ class Dlit_Math_Captcha_Admin {
 		}
 		?>
 		<div class="wrap">
-			<h1><?php esc_html_e( 'Math Captcha Settings', 'dlit-wp-math-captcha' ); ?></h1>
+			<h1><?php esc_html_e( 'Math Captcha Settings', 'dlit-math-captcha' ); ?></h1>
 			<?php settings_errors( self::OPTION_KEY ); ?>
 			<form method="post" action="options.php">
 				<?php

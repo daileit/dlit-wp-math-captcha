@@ -5,7 +5,7 @@
  * Generates a math question, stores the expected answer in a WordPress
  * transient keyed by a unique token, and renders the captcha HTML field.
  *
- * @package Dlit_WP_Math_Captcha
+ * @package Dlit_Easy_Math_Captcha
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -205,18 +205,18 @@ class Dlit_Math_Captcha {
 		$html = '<div class="dlit-math-captcha-wrap' . ( $simple_layout ? ' dlit-math-captcha-simple' : '' ) . $text_class . '">';
 
 		if ( ! $simple_layout ) {
-			$label = esc_html__( 'Math Captcha', 'dlit-wp-math-captcha' );
-			$note  = esc_html__( 'Please solve this math problem to prove you are human:', 'dlit-wp-math-captcha' );
+			$label = esc_html__( 'Math Captcha', 'dlit-math-captcha' );
+			$note  = esc_html__( 'Please solve this math problem to prove you are human:', 'dlit-math-captcha' );
 
 			$html .= '<label for="' . esc_attr( $field_id ) . '">';
 			$html .= '<strong>' . $label . '</strong><br>';
 			$html .= '<span class="dlit-captcha-note">' . $note . '</span>';
 			$html .= '</label>';
 		} else {
-			$tooltip = esc_attr__( 'Solve this math problem to prove you are human.', 'dlit-wp-math-captcha' );
+			$tooltip = esc_attr__( 'Solve this math problem to prove you are human.', 'dlit-math-captcha' );
 			$html   .= '<span class="dlit-captcha-simple-label">';
-			$html   .= '<a href="' . esc_url( $plugin_url ) . '" target="_blank" rel="noopener noreferrer" class="dlit-captcha-info" aria-label="' . esc_attr__( 'About Math Captcha', 'dlit-wp-math-captcha' ) . '" data-tooltip="' . $tooltip . '">&#8505;</a>';
-			$html   .= '<label for="' . esc_attr( $field_id ) . '" class="dlit-captcha-simple-title">' . esc_html__( 'Math:', 'dlit-wp-math-captcha' ) . '</label>';
+			$html   .= '<a href="' . esc_url( $plugin_url ) . '" target="_blank" rel="noopener noreferrer" class="dlit-captcha-info" aria-label="' . esc_attr__( 'About Math Captcha', 'dlit-math-captcha' ) . '" data-tooltip="' . $tooltip . '">&#8505;</a>';
+			$html   .= '<label for="' . esc_attr( $field_id ) . '" class="dlit-captcha-simple-title">' . esc_html__( 'Math:', 'dlit-math-captcha' ) . '</label>';
 			$html   .= '</span>';
 		}
 
@@ -224,10 +224,10 @@ class Dlit_Math_Captcha {
 			$html .= '<span class="dlit-captcha-simple-right">';
 		}
 
-		$html .= '<div class="dlit-captcha-question" aria-label="' . esc_attr__( 'Math question', 'dlit-wp-math-captcha' ) . '">';
+		$html .= '<div class="dlit-captcha-question" aria-label="' . esc_attr__( 'Math question', 'dlit-math-captcha' ) . '">';
 		$html .= wp_kses( $data['question'] . ( $simple_layout ? ' =' : ' = ?' ), array() );
 		$html .= '</div>';
-		$html .= '<input type="number" id="' . esc_attr( $field_id ) . '" name="dlit_captcha_answer" class="dlit-captcha-input" required autocomplete="off" aria-label="' . esc_attr__( 'Math captcha answer', 'dlit-wp-math-captcha' ) . '">';
+		$html .= '<input type="number" id="' . esc_attr( $field_id ) . '" name="dlit_captcha_answer" class="dlit-captcha-input" required autocomplete="off" aria-label="' . esc_attr__( 'Math captcha answer', 'dlit-math-captcha' ) . '">';
 		if ( $simple_layout ) {
 			$html .= '</span>';
 		}
@@ -249,7 +249,7 @@ class Dlit_Math_Captcha {
 		if ( ! wp_verify_nonce( $nonce, self::NONCE_ACTION ) ) {
 			return new WP_Error(
 				'dlit_captcha_invalid_nonce',
-				__( 'Security check failed. Please reload the page and try again.', 'dlit-wp-math-captcha' )
+				__( 'Security check failed. Please reload the page and try again.', 'dlit-math-captcha' )
 			);
 		}
 
@@ -259,14 +259,14 @@ class Dlit_Math_Captcha {
 		if ( '' === $answer ) {
 			return new WP_Error(
 				'dlit_captcha_empty',
-				__( 'Please answer the math captcha.', 'dlit-wp-math-captcha' )
+				__( 'Please answer the math captcha.', 'dlit-math-captcha' )
 			);
 		}
 
 		if ( ! self::verify( $token, $answer ) ) {
 			return new WP_Error(
 				'dlit_captcha_wrong',
-				__( 'Incorrect captcha answer. Please try again.', 'dlit-wp-math-captcha' )
+				__( 'Incorrect captcha answer. Please try again.', 'dlit-math-captcha' )
 			);
 		}
 
