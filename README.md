@@ -1,4 +1,4 @@
-# Dlit WP Math Captcha
+# Dlit Easy Math Captcha
 
 A simple WordPress plugin that applies a math captcha on comments, product reviews, login page, sign-up page, and Contact Form 7 forms.  
 The difficulty is fully configurable: choose the number of digits in the answer (1–3) and the allowed math operations (addition, subtraction, multiplication).

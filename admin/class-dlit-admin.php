@@ -6,7 +6,7 @@
  * the settings form for configuring which integrations are active and the
  * captcha difficulty.
  *
- * @package Dlit_WP_Math_Captcha
+ * @package Dlit_Easy_Math_Captcha
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
