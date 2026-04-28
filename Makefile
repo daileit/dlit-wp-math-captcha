@@ -2,13 +2,19 @@ SHELL := /bin/sh
 
 PLUGIN_FILE := $(shell awk '/^[[:space:]]*\* Plugin Name:/ { print FILENAME; exit }' ./*.php)
 VERSION := $(shell awk -F': *' '/^[[:space:]]*\* Version:/ { print $$2; exit }' $(PLUGIN_FILE))
-ZIP_NAME := dlit-math-captcha-v$(VERSION).zip
+PLUGIN_SLUG := dlit-math-captcha
+ZIP_NAME := $(PLUGIN_SLUG)-v$(VERSION).zip
 bump_ACTION := $(filter patch minor major sync,$(MAKECMDGOALS))
 
 .PHONY: zip bump patch minor major sync
 
 zip:
-	@zip -r "$(ZIP_NAME)" . -x "*/.*" ".git*"
+	@cd .. && zip -r "$(CURDIR)/$(ZIP_NAME)" "$(PLUGIN_SLUG)" \
+		-x "$(PLUGIN_SLUG)/*/.*" \
+		-x "$(PLUGIN_SLUG)/.git*" \
+		-x "$(PLUGIN_SLUG)/Makefile" \
+		-x "$(PLUGIN_SLUG)/*.zip" \
+		-x "$(PLUGIN_SLUG)/README.md"
 
 bump:
 	@action="$(bump_ACTION)"; \
