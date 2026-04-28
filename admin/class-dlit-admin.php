@@ -188,10 +188,10 @@ class Dlit_Math_Captcha_Admin {
 		echo '<select name="' . esc_attr( self::OPTION_KEY ) . '[num_digits]">';
 		for ( $i = 1; $i <= 3; $i++ ) {
 			printf(
-				'<option value="%d" %s>%d</option>',
-				$i,
+				'<option value="%d" %s>%s</option>',
+				absint( $i ),
 				selected( $num_digits, $i, false ),
-				$i
+				esc_html( absint( $i ) )
 			);
 		}
 		echo '</select>';

@@ -52,8 +52,12 @@ class Dlit_Math_Captcha_WooCommerce {
 	 * @return array Unmodified comment data when validation passes.
 	 */
 	public function validate_captcha( $comment_data ) {
-		// Only intercept product reviews.
-		if ( empty( $_POST['rating'] ) && ! isset( $_POST['dlit_captcha_token'] ) ) {
+		// Verify nonce first before accessing POST data for security decisions.
+		$nonce       = isset( $_POST['dlit_captcha_nonce_field'] ) ? sanitize_text_field( wp_unslash( $_POST['dlit_captcha_nonce_field'] ) ) : '';
+		$nonce_valid = ! empty( $nonce ) && wp_verify_nonce( $nonce, 'dlit_math_captcha_nonce' );
+
+		// Only intercept product reviews when captcha nonce is present or rating is submitted.
+		if ( $nonce_valid || empty( $_POST['rating'] ) ) {
 			return $comment_data;
 		}
 

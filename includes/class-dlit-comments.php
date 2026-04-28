@@ -47,19 +47,26 @@ class Dlit_Math_Captcha_Comments {
 	 * @return array Unmodified comment data when validation passes.
 	 */
 	public function validate_captcha( $comment_data ) {
-		// WooCommerce product reviews also pass through preprocess_comment.
-		// Let the WooCommerce integration handle those submissions to avoid
-		// consuming a single-use token twice.
-		$comment_type = isset( $_POST['comment_type'] ) ? sanitize_text_field( wp_unslash( $_POST['comment_type'] ) ) : '';
-		if ( 'review' === $comment_type || isset( $_POST['rating'] ) ) {
-			return $comment_data;
-		}
+		// Verify nonce first before accessing POST data for security decisions.
+		$nonce       = isset( $_POST['dlit_captcha_nonce_field'] ) ? sanitize_text_field( wp_unslash( $_POST['dlit_captcha_nonce_field'] ) ) : '';
+		$nonce_valid = ! empty( $nonce ) && wp_verify_nonce( $nonce, 'dlit_math_captcha_nonce' );
 
-		// Skip validation for logged-in users who have already approved comments.
-		if ( is_user_logged_in() ) {
-			$user = wp_get_current_user();
-			if ( user_can( $user, 'moderate_comments' ) ) {
+		// Skip validation for scenarios where captcha isn't expected.
+		if ( ! $nonce_valid ) {
+			// WooCommerce product reviews also pass through preprocess_comment.
+			// Let the WooCommerce integration handle those submissions to avoid
+			// consuming a single-use token twice.
+			$comment_type = isset( $_POST['comment_type'] ) ? sanitize_text_field( wp_unslash( $_POST['comment_type'] ) ) : '';
+			if ( 'review' === $comment_type || isset( $_POST['rating'] ) ) {
 				return $comment_data;
+			}
+
+			// Skip validation for logged-in users who have already approved comments.
+			if ( is_user_logged_in() ) {
+				$user = wp_get_current_user();
+				if ( user_can( $user, 'moderate_comments' ) ) {
+					return $comment_data;
+				}
 			}
 		}
 
