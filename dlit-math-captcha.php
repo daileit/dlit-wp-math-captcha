@@ -3,19 +3,19 @@
  * Plugin Name: Dlit Easy Math Captcha
  * Plugin URI:  https://github.com/daileit/dlit-wp-math-captcha
  * Description: A simple WordPress plugin that applies math captcha on comments, product reviews, login page, sign up page, and CF7 forms. Configurable difficulty (number of digits, operation type).
- * Version:     1.4.3
+ * Version:     1.4.4
  * Author:      Daileit
  * Author URI:  https://github.com/daileit
  * License:     GPL-2.0+
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain: dlit-math-captcha
+ * Text Domain: dlit-easy-math-captcha
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'DLIT_MATH_CAPTCHA_VERSION', '1.4.3' );
+define( 'DLIT_MATH_CAPTCHA_VERSION', '1.4.4' );
 define( 'DLIT_MATH_CAPTCHA_PLUGIN_FILE', __FILE__ );
 define( 'DLIT_MATH_CAPTCHA_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'DLIT_MATH_CAPTCHA_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
